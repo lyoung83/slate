@@ -6921,6 +6921,161 @@ To perform this operation, you must be authenticated by means of one of the foll
 apiKey
 </aside>
 
+## Unified.V1.ContactGroupController.delete_members
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts \
+  -H 'Accept: application/json'
+
+```
+
+```http
+DELETE http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts HTTP/1.1
+Host: localhost:4000
+
+Accept: application/json
+
+```
+
+```javascript
+var headers = {
+  'Accept':'application/json'
+
+};
+
+$.ajax({
+  url: 'http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts',
+  method: 'delete',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+```
+
+```javascript--nodejs
+const request = require('node-fetch');
+
+const headers = {
+  'Accept':'application/json'
+
+};
+
+fetch('http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.delete 'http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.delete('http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts', params={
+
+}, headers = headers)
+
+print r.json()
+```
+
+```java
+URL obj = new URL("http://localhost:4000/api/v1/contact_groups/{contact_group_id}/contacts");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("DELETE");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+```
+
+`DELETE /api/v1/contact_groups/{contact_group_id}/contacts`
+
+Add members an existing contact group
+
+<h3 id="Unified.V1.ContactGroupController.delete_members-parameters">Parameters</h3>
+
+Parameter|In|Type|Required|Description
+---|---|---|---|---|
+contact_group_id|path|integer|true|Contact Group ID
+member_ids|form_data|array|true|Collection of the contact IDs to remove from group
+
+
+> Example responses
+
+```json
+{
+  "name": "string",
+  "created_by_user_id": 0,
+  "contacts": [
+    {
+      "to_webook_id": "string",
+      "position": "string",
+      "pipeline_reminder_date": null,
+      "pipeline_reminder": 0,
+      "pipeline_custom": true,
+      "pipeline_assignee": "string",
+      "pipeline": "string",
+      "phone_numbers_json": null,
+      "last_name": "string",
+      "is_customer": true,
+      "from_webhook_id": "string",
+      "first_name": "string",
+      "emails_json": null,
+      "description": "string",
+      "created_by_user_id": 0,
+      "contact_user_id": 0,
+      "company": "string",
+      "addresses_json": null
+    }
+  ]
+}
+```
+<h3 id="Unified.V1.ContactGroupController.delete_members-responses">Responses</h3>
+
+Status|Meaning|Description|Schema
+---|---|---|---|
+200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[ContactGroup](#schemacontactgroup)
+422|[Unprocessable Entity](https://tools.ietf.org/html/rfc2518#section-10.3)|Unprocessable Entity|None
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+apiKey
+</aside>
+
 ## Unified.V1.ContactGroupController.update
 
 > Code samples
@@ -13798,70 +13953,6 @@ apiKey
 
 # Schemas
 
-## ContactGroups
-
-<a name="schemacontactgroups"></a>
-
-```json
-[
-  {
-    "name": "string",
-    "created_by_user_id": 0,
-    "contacts": [
-      {
-        "to_webook_id": "string",
-        "position": "string",
-        "pipeline_reminder_date": null,
-        "pipeline_reminder": 0,
-        "pipeline_custom": true,
-        "pipeline_assignee": "string",
-        "pipeline": "string",
-        "phone_numbers_json": null,
-        "last_name": "string",
-        "is_customer": true,
-        "from_webhook_id": "string",
-        "first_name": "string",
-        "emails_json": null,
-        "description": "string",
-        "created_by_user_id": 0,
-        "contact_user_id": 0,
-        "company": "string",
-        "addresses_json": null
-      }
-    ]
-  }
-]
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-anonymous|[[ContactGroup](#schemacontactgroup)]|false|A collection contact groups
-» name|string|false|Name of the contact group
-» created_by_user_id|integer|false|User Id of the user that created the contact group
-» contacts|[[Contact](#schemacontact)]|false|An array of user's contacts
-»» to_webook_id|string|false|Webhook ID for ContextIO
-»» position|string|false|Contact's position with company
-»» pipeline_reminder_date|date|false|Starting date for reminders
-»» pipeline_reminder|integer|false|Days between active contact reminders
-»» pipeline_custom|boolean|false|Is this a custom pipeline
-»» pipeline_assignee|string|false|Who assigned this contact to the pipeline
-»» pipeline|string|false|What pipline this contact is in
-»» phone_numbers_json|map|false|Map of phone numbers for contact
-»» last_name|string|false|Contact's last name
-»» is_customer|boolean|false|Is this a customer?
-»» from_webhook_id|string|false|Webhook ID for ContextIO
-»» first_name|string|false|Contact's first name
-»» emails_json|map|false|Map of emails for contact
-»» description|string|false|Contact's job description
-»» created_by_user_id|integer|false|ID of the user that created the contacts
-»» contact_user_id|integer|false|ID of contact on the platform
-»» company|string|false|Company the contact represents
-»» addresses_json|map|false|Map of addresses for contact
-
-
-
 ## Addresses
 
 <a name="schemaaddresses"></a>
@@ -13892,127 +13983,6 @@ anonymous|[[Address](#schemaaddress)]|false|A collection of orders
 » line_1|string|false|First line of an address
 » label|string|false|Label for the address
 » city|string|false|City abbreviation
-
-
-
-## Contact
-
-<a name="schemacontact"></a>
-
-```json
-{
-  "to_webook_id": "string",
-  "position": "string",
-  "pipeline_reminder_date": null,
-  "pipeline_reminder": 0,
-  "pipeline_custom": true,
-  "pipeline_assignee": "string",
-  "pipeline": "string",
-  "phone_numbers_json": null,
-  "last_name": "string",
-  "is_customer": true,
-  "from_webhook_id": "string",
-  "first_name": "string",
-  "emails_json": null,
-  "description": "string",
-  "created_by_user_id": 0,
-  "contact_user_id": 0,
-  "company": "string",
-  "addresses_json": null
-}
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-to_webook_id|string|false|Webhook ID for ContextIO
-position|string|false|Contact's position with company
-pipeline_reminder_date|date|false|Starting date for reminders
-pipeline_reminder|integer|false|Days between active contact reminders
-pipeline_custom|boolean|false|Is this a custom pipeline
-pipeline_assignee|string|false|Who assigned this contact to the pipeline
-pipeline|string|false|What pipline this contact is in
-phone_numbers_json|map|false|Map of phone numbers for contact
-last_name|string|false|Contact's last name
-is_customer|boolean|false|Is this a customer?
-from_webhook_id|string|false|Webhook ID for ContextIO
-first_name|string|false|Contact's first name
-emails_json|map|false|Map of emails for contact
-description|string|false|Contact's job description
-created_by_user_id|integer|false|ID of the user that created the contacts
-contact_user_id|integer|false|ID of contact on the platform
-company|string|false|Company the contact represents
-addresses_json|map|false|Map of addresses for contact
-
-
-
-## ContactCommunication
-
-<a name="schemacontactcommunication"></a>
-
-```json
-{
-  "user_id": 0,
-  "type": "string",
-  "note": "string",
-  "contact_id": 0,
-  "communication_date": null
-}
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-user_id|integer|false|ID of the user that made the communication
-type|string|false|Communication Type
-note|string|false|Details of the communication
-contact_id|integer|false|ID of the contact the communication was with
-communication_date|date|false|Date of communication
-
-
-
-## CommunicationSettings
-
-<a name="schemacommunicationsettings"></a>
-
-```json
-[
-  {
-    "threshold_json": null,
-    "threshold_enabled": true
-  }
-]
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-anonymous|[[CommunicationSetting](#schemacommunicationsetting)]|false|A collection of a User's communication settings
-» threshold_json|map|false|Values for threshold
-» threshold_enabled|boolean|false|if thresholds have been enabled
-
-
-
-## ConversationMembership
-
-<a name="schemaconversationmembership"></a>
-
-```json
-{
-  "user_id": 0,
-  "conversation_id": 0
-}
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-user_id|integer|false|User that owns the conversation membership
-conversation_id|integer|false|Conversation ID that memebership belongs to
 
 
 
@@ -14165,28 +14135,29 @@ anonymous|[[Product](#schemaproduct)]|false|A collection of Products
 
 
 
-## Messages
+## ContactCommunication
 
-<a name="schemamessages"></a>
+<a name="schemacontactcommunication"></a>
 
 ```json
-[
-  {
-    "user_id": 0,
-    "conversation_id": 0,
-    "body": "string"
-  }
-]
+{
+  "user_id": 0,
+  "type": "string",
+  "note": "string",
+  "contact_id": 0,
+  "communication_date": null
+}
 ```
 
 ### Properties
 
 Name|Type|Required|Description
 ---|---|---|---|
-anonymous|[[Message](#schemamessage)]|false|A collection of Messages
-» user_id|integer|false|ID of the user that sent the message
-» conversation_id|integer|false|Conversation ID that message belongs to
-» body|string|false|The message's message
+user_id|integer|false|ID of the user that made the communication
+type|string|false|Communication Type
+note|string|false|Details of the communication
+contact_id|integer|false|ID of the contact the communication was with
+communication_date|date|false|Date of communication
 
 
 
@@ -14545,46 +14516,15 @@ items|[[InvoiceItem](#schemainvoiceitem)]|false|A collection of Invoice Items
 
 
 
-## Conversations
+## CommunicationSettings
 
-<a name="schemaconversations"></a>
+<a name="schemacommunicationsettings"></a>
 
 ```json
 [
   {
-    "users": [
-      {
-        "username": "string",
-        "user_profile": {
-          "organization_name": "string",
-          "last_name": "string",
-          "first_name": "string",
-          "description": "string",
-          "avatar": "string"
-        },
-        "is_admin": true,
-        "email": "string",
-        "discourse_user_id": 0,
-        "discourse_api_key": "string",
-        "description": "string",
-        "company_name": "string",
-        "active": true
-      }
-    ],
-    "messages": [
-      {
-        "user_id": 0,
-        "conversation_id": 0,
-        "body": "string"
-      }
-    ],
-    "id": 0,
-    "converation_memberships": [
-      {
-        "user_id": 0,
-        "conversation_id": 0
-      }
-    ]
+    "threshold_json": null,
+    "threshold_enabled": true
   }
 ]
 ```
@@ -14593,30 +14533,9 @@ items|[[InvoiceItem](#schemainvoiceitem)]|false|A collection of Invoice Items
 
 Name|Type|Required|Description
 ---|---|---|---|
-anonymous|[[Conversation](#schemaconversation)]|false|A collection of conversations
-» id|integer|false|Conversation ID
-» users|[[User](#schemauser)]|false|A collection of Users
-»» username|string|false|The selected username for the user
-»» user_profile|[UserProfile](#schemauserprofile)|false|A User's profile that holds all public information
-»»» organization_name|string|false|The User's company name
-»»» last_name|string|false|The User's last name
-»»» first_name|string|false|The User's first name
-»»» description|string|false|The User's job description
-»»» avatar|string|false|filename of the user's persisted avatar
-»» is_admin|boolean|false|Whether or not this user has admin permissions
-»» email|string|false|The given email for the user
-»» discourse_user_id|integer|false|The community generated user_id for the user
-»» discourse_api_key|string|false|The community generated apiKey for the user
-»» description|string|false|The job title of the user
-»» company_name|string|false|The name of the company this user represents
-»» active|boolean|false|Whether or not this user is active
-» messages|[[Message](#schemamessage)]|false|A collection of Messages
-»» user_id|integer|false|ID of the user that sent the message
-»» conversation_id|integer|false|Conversation ID that message belongs to
-»» body|string|false|The message's message
-» converation_memberships|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
-»» user_id|integer|false|User that owns the conversation membership
-»» conversation_id|integer|false|Conversation ID that memebership belongs to
+anonymous|[[CommunicationSetting](#schemacommunicationsetting)]|false|A collection of a User's communication settings
+» threshold_json|map|false|Values for threshold
+» threshold_enabled|boolean|false|if thresholds have been enabled
 
 
 
@@ -14921,75 +14840,61 @@ avatar|string|false|filename of the user's persisted avatar
 
 
 
-## Conversation
+## ConversationMemberships
 
-<a name="schemaconversation"></a>
+<a name="schemaconversationmemberships"></a>
 
 ```json
-{
-  "users": [
-    {
-      "username": "string",
-      "user_profile": {
-        "organization_name": "string",
-        "last_name": "string",
-        "first_name": "string",
-        "description": "string",
-        "avatar": "string"
-      },
-      "is_admin": true,
-      "email": "string",
-      "discourse_user_id": 0,
-      "discourse_api_key": "string",
-      "description": "string",
-      "company_name": "string",
-      "active": true
-    }
-  ],
-  "messages": [
-    {
-      "user_id": 0,
-      "conversation_id": 0,
-      "body": "string"
-    }
-  ],
-  "id": 0,
-  "converation_memberships": [
-    {
-      "user_id": 0,
-      "conversation_id": 0
-    }
-  ]
-}
+[
+  {
+    "user_id": 0,
+    "conversation_id": 0
+  }
+]
 ```
 
 ### Properties
 
 Name|Type|Required|Description
 ---|---|---|---|
-id|integer|false|Conversation ID
-users|[[User](#schemauser)]|false|A collection of Users
-» username|string|false|The selected username for the user
-» user_profile|[UserProfile](#schemauserprofile)|false|A User's profile that holds all public information
-»» organization_name|string|false|The User's company name
-»» last_name|string|false|The User's last name
-»» first_name|string|false|The User's first name
-»» description|string|false|The User's job description
-»» avatar|string|false|filename of the user's persisted avatar
-» is_admin|boolean|false|Whether or not this user has admin permissions
-» email|string|false|The given email for the user
-» discourse_user_id|integer|false|The community generated user_id for the user
-» discourse_api_key|string|false|The community generated apiKey for the user
-» description|string|false|The job title of the user
-» company_name|string|false|The name of the company this user represents
-» active|boolean|false|Whether or not this user is active
-messages|[[Message](#schemamessage)]|false|A collection of Messages
-» user_id|integer|false|ID of the user that sent the message
-» conversation_id|integer|false|Conversation ID that message belongs to
-» body|string|false|The message's message
-converation_memberships|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
+anonymous|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
 » user_id|integer|false|User that owns the conversation membership
 » conversation_id|integer|false|Conversation ID that memebership belongs to
+
+
+
+## Emails
+
+<a name="schemaemails"></a>
+
+```json
+[
+  {
+    "status": 0,
+    "connect_token_used": 0,
+    "connect_token_token": "string",
+    "connect_token_expires": 0,
+    "connect_token_browser_redirect_url": "string",
+    "account_suspended": "string",
+    "account_created": "string",
+    "account_account": "string"
+  }
+]
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+anonymous|[[Email](#schemaemail)]|false|A collection of emails accounts
+» status|integer|false|The number status representing the contact time
+» connect_token_used|integer|false|If token is used, represented by number
+» connect_token_token|string|false|connect token for contextio
+» connect_token_expires|integer|false|Token expiration
+» connect_token_browser_redirect_url|string|false|redirect for contextio browser
+» account_suspended|string(ISO-8601)|false|When the account is suspended if applicable
+» account_created|string(ISO-8601)|false|When the account was created
+» account_account|string|false|The account for email
 
 
 
@@ -15104,6 +15009,67 @@ rankings|[[Ranking](#schemaranking)]|false|A collection of Rankings for points c
 » rank|integer|false|The user's ranking
 » points|integer|false|Points a user has accumulated in a category
 » category|string|false|The category a user has scored points in
+
+
+
+## ContactGroup
+
+<a name="schemacontactgroup"></a>
+
+```json
+{
+  "name": "string",
+  "created_by_user_id": 0,
+  "contacts": [
+    {
+      "to_webook_id": "string",
+      "position": "string",
+      "pipeline_reminder_date": null,
+      "pipeline_reminder": 0,
+      "pipeline_custom": true,
+      "pipeline_assignee": "string",
+      "pipeline": "string",
+      "phone_numbers_json": null,
+      "last_name": "string",
+      "is_customer": true,
+      "from_webhook_id": "string",
+      "first_name": "string",
+      "emails_json": null,
+      "description": "string",
+      "created_by_user_id": 0,
+      "contact_user_id": 0,
+      "company": "string",
+      "addresses_json": null
+    }
+  ]
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+name|string|false|Name of the contact group
+created_by_user_id|integer|false|User Id of the user that created the contact group
+contacts|[[Contact](#schemacontact)]|false|An array of user's contacts
+» to_webook_id|string|false|Webhook ID for ContextIO
+» position|string|false|Contact's position with company
+» pipeline_reminder_date|date|false|Starting date for reminders
+» pipeline_reminder|integer|false|Days between active contact reminders
+» pipeline_custom|boolean|false|Is this a custom pipeline
+» pipeline_assignee|string|false|Who assigned this contact to the pipeline
+» pipeline|string|false|What pipline this contact is in
+» phone_numbers_json|map|false|Map of phone numbers for contact
+» last_name|string|false|Contact's last name
+» is_customer|boolean|false|Is this a customer?
+» from_webhook_id|string|false|Webhook ID for ContextIO
+» first_name|string|false|Contact's first name
+» emails_json|map|false|Map of emails for contact
+» description|string|false|Contact's job description
+» created_by_user_id|integer|false|ID of the user that created the contacts
+» contact_user_id|integer|false|ID of contact on the platform
+» company|string|false|Company the contact represents
+» addresses_json|map|false|Map of addresses for contact
 
 
 
@@ -15224,6 +15190,26 @@ active|boolean|false|Whether or not this user is active
 
 
 
+## CommunicationSetting
+
+<a name="schemacommunicationsetting"></a>
+
+```json
+{
+  "threshold_json": null,
+  "threshold_enabled": true
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+threshold_json|map|false|Values for threshold
+threshold_enabled|boolean|false|if thresholds have been enabled
+
+
+
 ## SavedProducts
 
 <a name="schemasavedproducts"></a>
@@ -15304,71 +15290,20 @@ anonymous|[[SavedProduct](#schemasavedproduct)]|false|A collection of Products
 
 
 
-## Emails
+## Email
 
-<a name="schemaemails"></a>
-
-```json
-[
-  {
-    "status": 0,
-    "connect_token_used": 0,
-    "connect_token_token": "string",
-    "connect_token_expires": 0,
-    "connect_token_browser_redirect_url": "string",
-    "account_suspended": "string",
-    "account_created": "string",
-    "account_account": "string"
-  }
-]
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-anonymous|[[Email](#schemaemail)]|false|A collection of emails accounts
-» status|integer|false|The number status representing the contact time
-» connect_token_used|integer|false|If token is used, represented by number
-» connect_token_token|string|false|connect token for contextio
-» connect_token_expires|integer|false|Token expiration
-» connect_token_browser_redirect_url|string|false|redirect for contextio browser
-» account_suspended|string(ISO-8601)|false|When the account is suspended if applicable
-» account_created|string(ISO-8601)|false|When the account was created
-» account_account|string|false|The account for email
-
-
-
-## ContactGroup
-
-<a name="schemacontactgroup"></a>
+<a name="schemaemail"></a>
 
 ```json
 {
-  "name": "string",
-  "created_by_user_id": 0,
-  "contacts": [
-    {
-      "to_webook_id": "string",
-      "position": "string",
-      "pipeline_reminder_date": null,
-      "pipeline_reminder": 0,
-      "pipeline_custom": true,
-      "pipeline_assignee": "string",
-      "pipeline": "string",
-      "phone_numbers_json": null,
-      "last_name": "string",
-      "is_customer": true,
-      "from_webhook_id": "string",
-      "first_name": "string",
-      "emails_json": null,
-      "description": "string",
-      "created_by_user_id": 0,
-      "contact_user_id": 0,
-      "company": "string",
-      "addresses_json": null
-    }
-  ]
+  "status": 0,
+  "connect_token_used": 0,
+  "connect_token_token": "string",
+  "connect_token_expires": 0,
+  "connect_token_browser_redirect_url": "string",
+  "account_suspended": "string",
+  "account_created": "string",
+  "account_account": "string"
 }
 ```
 
@@ -15376,27 +15311,14 @@ anonymous|[[Email](#schemaemail)]|false|A collection of emails accounts
 
 Name|Type|Required|Description
 ---|---|---|---|
-name|string|false|Name of the contact group
-created_by_user_id|integer|false|User Id of the user that created the contact group
-contacts|[[Contact](#schemacontact)]|false|An array of user's contacts
-» to_webook_id|string|false|Webhook ID for ContextIO
-» position|string|false|Contact's position with company
-» pipeline_reminder_date|date|false|Starting date for reminders
-» pipeline_reminder|integer|false|Days between active contact reminders
-» pipeline_custom|boolean|false|Is this a custom pipeline
-» pipeline_assignee|string|false|Who assigned this contact to the pipeline
-» pipeline|string|false|What pipline this contact is in
-» phone_numbers_json|map|false|Map of phone numbers for contact
-» last_name|string|false|Contact's last name
-» is_customer|boolean|false|Is this a customer?
-» from_webhook_id|string|false|Webhook ID for ContextIO
-» first_name|string|false|Contact's first name
-» emails_json|map|false|Map of emails for contact
-» description|string|false|Contact's job description
-» created_by_user_id|integer|false|ID of the user that created the contacts
-» contact_user_id|integer|false|ID of contact on the platform
-» company|string|false|Company the contact represents
-» addresses_json|map|false|Map of addresses for contact
+status|integer|false|The number status representing the contact time
+connect_token_used|integer|false|If token is used, represented by number
+connect_token_token|string|false|connect token for contextio
+connect_token_expires|integer|false|Token expiration
+connect_token_browser_redirect_url|string|false|redirect for contextio browser
+account_suspended|string(ISO-8601)|false|When the account is suspended if applicable
+account_created|string(ISO-8601)|false|When the account was created
+account_account|string|false|The account for email
 
 
 
@@ -15449,35 +15371,28 @@ anonymous|[[Post](#schemapost)]|false|A collection of Posts
 
 
 
-## Email
+## Messages
 
-<a name="schemaemail"></a>
+<a name="schemamessages"></a>
 
 ```json
-{
-  "status": 0,
-  "connect_token_used": 0,
-  "connect_token_token": "string",
-  "connect_token_expires": 0,
-  "connect_token_browser_redirect_url": "string",
-  "account_suspended": "string",
-  "account_created": "string",
-  "account_account": "string"
-}
+[
+  {
+    "user_id": 0,
+    "conversation_id": 0,
+    "body": "string"
+  }
+]
 ```
 
 ### Properties
 
 Name|Type|Required|Description
 ---|---|---|---|
-status|integer|false|The number status representing the contact time
-connect_token_used|integer|false|If token is used, represented by number
-connect_token_token|string|false|connect token for contextio
-connect_token_expires|integer|false|Token expiration
-connect_token_browser_redirect_url|string|false|redirect for contextio browser
-account_suspended|string(ISO-8601)|false|When the account is suspended if applicable
-account_created|string(ISO-8601)|false|When the account was created
-account_account|string|false|The account for email
+anonymous|[[Message](#schemamessage)]|false|A collection of Messages
+» user_id|integer|false|ID of the user that sent the message
+» conversation_id|integer|false|Conversation ID that message belongs to
+» body|string|false|The message's message
 
 
 
@@ -15549,28 +15464,6 @@ category|string|false|The category a user has scored points in
 
 
 
-## Message
-
-<a name="schemamessage"></a>
-
-```json
-{
-  "user_id": 0,
-  "conversation_id": 0,
-  "body": "string"
-}
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-user_id|integer|false|ID of the user that sent the message
-conversation_id|integer|false|Conversation ID that message belongs to
-body|string|false|The message's message
-
-
-
 ## Session
 
 <a name="schemasession"></a>
@@ -15612,6 +15505,78 @@ entities|[Entities](#schemaentities)|false|No description
 »» company_name|string|false|The name of the company this user represents
 »» authToken|string|false|JSON Web Token issued to user to be used in the "Authorization" header
 »» active|boolean|false|Whether or not this user is active
+
+
+
+## Conversation
+
+<a name="schemaconversation"></a>
+
+```json
+{
+  "users": [
+    {
+      "username": "string",
+      "user_profile": {
+        "organization_name": "string",
+        "last_name": "string",
+        "first_name": "string",
+        "description": "string",
+        "avatar": "string"
+      },
+      "is_admin": true,
+      "email": "string",
+      "discourse_user_id": 0,
+      "discourse_api_key": "string",
+      "description": "string",
+      "company_name": "string",
+      "active": true
+    }
+  ],
+  "messages": [
+    {
+      "user_id": 0,
+      "conversation_id": 0,
+      "body": "string"
+    }
+  ],
+  "id": 0,
+  "converation_memberships": [
+    {
+      "user_id": 0,
+      "conversation_id": 0
+    }
+  ]
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+id|integer|false|Conversation ID
+users|[[User](#schemauser)]|false|A collection of Users
+» username|string|false|The selected username for the user
+» user_profile|[UserProfile](#schemauserprofile)|false|A User's profile that holds all public information
+»» organization_name|string|false|The User's company name
+»» last_name|string|false|The User's last name
+»» first_name|string|false|The User's first name
+»» description|string|false|The User's job description
+»» avatar|string|false|filename of the user's persisted avatar
+» is_admin|boolean|false|Whether or not this user has admin permissions
+» email|string|false|The given email for the user
+» discourse_user_id|integer|false|The community generated user_id for the user
+» discourse_api_key|string|false|The community generated apiKey for the user
+» description|string|false|The job title of the user
+» company_name|string|false|The name of the company this user represents
+» active|boolean|false|Whether or not this user is active
+messages|[[Message](#schemamessage)]|false|A collection of Messages
+» user_id|integer|false|ID of the user that sent the message
+» conversation_id|integer|false|Conversation ID that message belongs to
+» body|string|false|The message's message
+converation_memberships|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
+» user_id|integer|false|User that owns the conversation membership
+» conversation_id|integer|false|Conversation ID that memebership belongs to
 
 
 
@@ -15692,23 +15657,67 @@ date_saved|date|false|Date product was saved for later viewing
 
 
 
-## CommunicationSetting
+## ContactGroups
 
-<a name="schemacommunicationsetting"></a>
+<a name="schemacontactgroups"></a>
 
 ```json
-{
-  "threshold_json": null,
-  "threshold_enabled": true
-}
+[
+  {
+    "name": "string",
+    "created_by_user_id": 0,
+    "contacts": [
+      {
+        "to_webook_id": "string",
+        "position": "string",
+        "pipeline_reminder_date": null,
+        "pipeline_reminder": 0,
+        "pipeline_custom": true,
+        "pipeline_assignee": "string",
+        "pipeline": "string",
+        "phone_numbers_json": null,
+        "last_name": "string",
+        "is_customer": true,
+        "from_webhook_id": "string",
+        "first_name": "string",
+        "emails_json": null,
+        "description": "string",
+        "created_by_user_id": 0,
+        "contact_user_id": 0,
+        "company": "string",
+        "addresses_json": null
+      }
+    ]
+  }
+]
 ```
 
 ### Properties
 
 Name|Type|Required|Description
 ---|---|---|---|
-threshold_json|map|false|Values for threshold
-threshold_enabled|boolean|false|if thresholds have been enabled
+anonymous|[[ContactGroup](#schemacontactgroup)]|false|A collection contact groups
+» name|string|false|Name of the contact group
+» created_by_user_id|integer|false|User Id of the user that created the contact group
+» contacts|[[Contact](#schemacontact)]|false|An array of user's contacts
+»» to_webook_id|string|false|Webhook ID for ContextIO
+»» position|string|false|Contact's position with company
+»» pipeline_reminder_date|date|false|Starting date for reminders
+»» pipeline_reminder|integer|false|Days between active contact reminders
+»» pipeline_custom|boolean|false|Is this a custom pipeline
+»» pipeline_assignee|string|false|Who assigned this contact to the pipeline
+»» pipeline|string|false|What pipline this contact is in
+»» phone_numbers_json|map|false|Map of phone numbers for contact
+»» last_name|string|false|Contact's last name
+»» is_customer|boolean|false|Is this a customer?
+»» from_webhook_id|string|false|Webhook ID for ContextIO
+»» first_name|string|false|Contact's first name
+»» emails_json|map|false|Map of emails for contact
+»» description|string|false|Contact's job description
+»» created_by_user_id|integer|false|ID of the user that created the contacts
+»» contact_user_id|integer|false|ID of contact on the platform
+»» company|string|false|Company the contact represents
+»» addresses_json|map|false|Map of addresses for contact
 
 
 
@@ -15729,29 +15738,6 @@ Name|Type|Required|Description
 ---|---|---|---|
 post_id|integer|false|ID of the post the image belongs to
 image|string|false|The persisted filname of the image
-
-
-
-## ConversationMemberships
-
-<a name="schemaconversationmemberships"></a>
-
-```json
-[
-  {
-    "user_id": 0,
-    "conversation_id": 0
-  }
-]
-```
-
-### Properties
-
-Name|Type|Required|Description
----|---|---|---|
-anonymous|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
-» user_id|integer|false|User that owns the conversation membership
-» conversation_id|integer|false|Conversation ID that memebership belongs to
 
 
 
@@ -15816,6 +15802,133 @@ anonymous|[[InvoiceItem](#schemainvoiceitem)]|false|A collection of Invoice Item
 
 
 
+## Contact
+
+<a name="schemacontact"></a>
+
+```json
+{
+  "to_webook_id": "string",
+  "position": "string",
+  "pipeline_reminder_date": null,
+  "pipeline_reminder": 0,
+  "pipeline_custom": true,
+  "pipeline_assignee": "string",
+  "pipeline": "string",
+  "phone_numbers_json": null,
+  "last_name": "string",
+  "is_customer": true,
+  "from_webhook_id": "string",
+  "first_name": "string",
+  "emails_json": null,
+  "description": "string",
+  "created_by_user_id": 0,
+  "contact_user_id": 0,
+  "company": "string",
+  "addresses_json": null
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+to_webook_id|string|false|Webhook ID for ContextIO
+position|string|false|Contact's position with company
+pipeline_reminder_date|date|false|Starting date for reminders
+pipeline_reminder|integer|false|Days between active contact reminders
+pipeline_custom|boolean|false|Is this a custom pipeline
+pipeline_assignee|string|false|Who assigned this contact to the pipeline
+pipeline|string|false|What pipline this contact is in
+phone_numbers_json|map|false|Map of phone numbers for contact
+last_name|string|false|Contact's last name
+is_customer|boolean|false|Is this a customer?
+from_webhook_id|string|false|Webhook ID for ContextIO
+first_name|string|false|Contact's first name
+emails_json|map|false|Map of emails for contact
+description|string|false|Contact's job description
+created_by_user_id|integer|false|ID of the user that created the contacts
+contact_user_id|integer|false|ID of contact on the platform
+company|string|false|Company the contact represents
+addresses_json|map|false|Map of addresses for contact
+
+
+
+## Conversations
+
+<a name="schemaconversations"></a>
+
+```json
+[
+  {
+    "users": [
+      {
+        "username": "string",
+        "user_profile": {
+          "organization_name": "string",
+          "last_name": "string",
+          "first_name": "string",
+          "description": "string",
+          "avatar": "string"
+        },
+        "is_admin": true,
+        "email": "string",
+        "discourse_user_id": 0,
+        "discourse_api_key": "string",
+        "description": "string",
+        "company_name": "string",
+        "active": true
+      }
+    ],
+    "messages": [
+      {
+        "user_id": 0,
+        "conversation_id": 0,
+        "body": "string"
+      }
+    ],
+    "id": 0,
+    "converation_memberships": [
+      {
+        "user_id": 0,
+        "conversation_id": 0
+      }
+    ]
+  }
+]
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+anonymous|[[Conversation](#schemaconversation)]|false|A collection of conversations
+» id|integer|false|Conversation ID
+» users|[[User](#schemauser)]|false|A collection of Users
+»» username|string|false|The selected username for the user
+»» user_profile|[UserProfile](#schemauserprofile)|false|A User's profile that holds all public information
+»»» organization_name|string|false|The User's company name
+»»» last_name|string|false|The User's last name
+»»» first_name|string|false|The User's first name
+»»» description|string|false|The User's job description
+»»» avatar|string|false|filename of the user's persisted avatar
+»» is_admin|boolean|false|Whether or not this user has admin permissions
+»» email|string|false|The given email for the user
+»» discourse_user_id|integer|false|The community generated user_id for the user
+»» discourse_api_key|string|false|The community generated apiKey for the user
+»» description|string|false|The job title of the user
+»» company_name|string|false|The name of the company this user represents
+»» active|boolean|false|Whether or not this user is active
+» messages|[[Message](#schemamessage)]|false|A collection of Messages
+»» user_id|integer|false|ID of the user that sent the message
+»» conversation_id|integer|false|Conversation ID that message belongs to
+»» body|string|false|The message's message
+» converation_memberships|[[ConversationMembership](#schemaconversationmembership)]|false|A collection of conversation memberships
+»» user_id|integer|false|User that owns the conversation membership
+»» conversation_id|integer|false|Conversation ID that memebership belongs to
+
+
+
 ## Comment
 
 <a name="schemacomment"></a>
@@ -15835,6 +15948,28 @@ Name|Type|Required|Description
 post_id|integer|false|The id of the associated post
 content|string|false|The Comment content
 author_id|integer|false|The id of the user
+
+
+
+## Message
+
+<a name="schemamessage"></a>
+
+```json
+{
+  "user_id": 0,
+  "conversation_id": 0,
+  "body": "string"
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+user_id|integer|false|ID of the user that sent the message
+conversation_id|integer|false|Conversation ID that message belongs to
+body|string|false|The message's message
 
 
 
@@ -15865,6 +16000,26 @@ line_2|string|false|Second Line of an address
 line_1|string|false|First line of an address
 label|string|false|Label for the address
 city|string|false|City abbreviation
+
+
+
+## ConversationMembership
+
+<a name="schemaconversationmembership"></a>
+
+```json
+{
+  "user_id": 0,
+  "conversation_id": 0
+}
+```
+
+### Properties
+
+Name|Type|Required|Description
+---|---|---|---|
+user_id|integer|false|User that owns the conversation membership
+conversation_id|integer|false|Conversation ID that memebership belongs to
 
 
 
